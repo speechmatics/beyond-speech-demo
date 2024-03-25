@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Media Loader</title>
+  <style>
+    body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+video {
+    max-width: 100%;
+    margin-top: 20px;
+}
+
+  </style>
+</head>
+<body>
+    <select id="mediaSelector">
+        <!-- Options will be populated by JavaScript -->
+    </select>
+    <video id="videoPlayer" controls>
+        <track id="subtitleTrack" label="English" kind="subtitles" srclang="en">
+    </video>
+    <script src="script.js"></script>
+</body>
+</html>
