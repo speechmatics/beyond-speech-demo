@@ -4,33 +4,33 @@ document.addEventListener('DOMContentLoaded', function() {
     const subtitleTrack = document.getElementById('subtitleTrack');
 
     const mediaList = [
-        { title: 'Video 1', file: 'video1.mp4' },
-        { title: 'Video 2', file: 'video2.mp4' },
+        { title: 'Rob Becketts APOLLO', file: 'media/RobBeckettsAPOLLO.mp4' },
+        { title: 'Big Bang', file: 'media/BigBang.mp4' },
         // Add more files as needed
     ];
 
-    // Populate the dropdown
+    // Populate the dropdown and load the first video
     mediaList.forEach((media, index) => {
-        const option = new Option(media.title, index);
+        const option = new Option(media.title, media.file, index === 0, index === 0);
         mediaSelector.add(option);
     });
 
-    // Change video source and load subtitle
-    mediaSelector.addEventListener('change', function() {
-        const selectedMedia = mediaList[this.value];
+    // Function to change video source and load subtitle
+    function changeMedia(selectedMedia) {
         videoPlayer.src = selectedMedia.file;
         const subtitleFile = selectedMedia.file.replace('.mp4', '.vtt');
-
-        // Check if the subtitle file exists
-        fetch(subtitleFile).then(response => {
-            if (response.ok) {
-                subtitleTrack.src = subtitleFile;
-                videoPlayer.textTracks[0].mode = 'showing';
-            } else {
-                subtitleTrack.src = ''; // Clear subtitle if not found
-            }
-        }).catch(error => console.error('Error loading subtitle:', error));
-
+        subtitleTrack.src = subtitleFile; // Attempt to load subtitle
         videoPlayer.load();
+    }
+
+    // Load the first video by default
+    if (mediaList.length > 0) {
+        changeMedia(mediaList[0]);
+    }
+
+    // Handle selection changes
+    mediaSelector.addEventListener('change', function() {
+        const selectedMedia = mediaList[this.value];
+        changeMedia(selectedMedia);
     });
 });
